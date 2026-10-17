@@ -1,5 +1,7 @@
 # howfar
 
+![howfar demo: an agent runs howfar plan and done while the status line fills from 0% to 100%](docs/demo.gif)
+
 A progress bar for AI coding agents: Claude Code, Codex CLI, Gemini CLI, or any agent that can run shell commands.
 
 The agent reports its own progress by running a command. The bar shows percent, current step, a time estimate and a milestone checklist:
