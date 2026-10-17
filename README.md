@@ -24,6 +24,8 @@ Current: Docs and agent files
 
 ## Claude Code plugin (CLI and desktop app)
 
+![howfar plugin demo: install with one command, the bar above the prompt fills as the agent works, and resets on the next prompt](docs/plugin-demo.gif)
+
 The quickest setup. At the Claude Code prompt in a terminal:
 
 ```
