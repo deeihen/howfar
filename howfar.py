@@ -19,7 +19,7 @@ USAGE = """usage: howfar.py <command> [args]
   watch                           redraw the full view every second
   --version                       print the version"""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 BAR_WIDTH = 20
 
 

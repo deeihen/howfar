@@ -1,3 +1,4 @@
 progress.json
 __pycache__/
 *.tmp
+.claude-plugin/types/
