@@ -1,11 +1,11 @@
-# aiprogress
+# howfar
 
 A progress bar for AI coding agents: Claude Code, Codex CLI, Gemini CLI, or any agent that can run shell commands.
 
 The agent reports its own progress by running a command. The bar shows percent, current step, a time estimate and a milestone checklist:
 
 ```
-Build aiprogress
+Build howfar
 [###########---------] 55%
 ETA: ~4m 10s left   elapsed 5m 05s
 Current: Docs and agent files
@@ -22,11 +22,11 @@ Current: Docs and agent files
 
 ## Setup
 
-1. Python 3, standard library only. Copy `aiprogress.py` into your project or anywhere on disk.
+1. Python 3, standard library only. Copy `howfar.py` into your project or anywhere on disk.
 2. Paste the instruction block below into your agent's instruction file (`CLAUDE.md`, `AGENTS.md` or `GEMINI.md`).
 3. Show the bar: a status line in Claude Code, or `watch` in a second pane for other agents.
 
-State is stored in `./progress.json`. Set `AIPROGRESS_FILE` to use another path. Writes are atomic.
+State is stored in `./progress.json`. Set `HOWFAR_FILE` to use another path. Writes are atomic.
 
 ## Commands
 
@@ -39,24 +39,25 @@ State is stored in `./progress.json`. Set `AIPROGRESS_FILE` to use another path.
 | `show` | Print the full view once. |
 | `line` | One short line for status bars. |
 | `watch` | Redraw the full view every second until Ctrl-C. |
+| `--version` | Print the version. |
 
 Percent = done weights / total weight, rounded. ETA = elapsed × (100 − percent) / percent. Unknown commands or steps exit with code 1.
 
 ## Instruction block for CLAUDE.md, AGENTS.md or GEMINI.md
 
 ```markdown
-## Progress reporting (aiprogress)
+## Progress reporting (howfar)
 
-Report your progress on every multi-step task with `aiprogress.py`:
+Report your progress on every multi-step task with `howfar.py`:
 
-1. Before any work, run `python3 aiprogress.py plan "<task>" "<Milestone>:<weight>" ...` with 4 to 8 milestones whose weights add up to 100. Weight each milestone by expected effort.
-2. Run `python3 aiprogress.py start "<Milestone>"` before you begin a milestone.
-3. Run `python3 aiprogress.py done "<Milestone>"` after it is finished. Only mark a milestone done when it actually works (code runs, tests pass), not when you have merely written it.
+1. Before any work, run `python3 howfar.py plan "<task>" "<Milestone>:<weight>" ...` with 4 to 8 milestones whose weights add up to 100. Weight each milestone by expected effort.
+2. Run `python3 howfar.py start "<Milestone>"` before you begin a milestone.
+3. Run `python3 howfar.py done "<Milestone>"` after it is finished. Only mark a milestone done when it actually works (code runs, tests pass), not when you have merely written it.
 4. If the scope changes, run `plan` again with the new milestones instead of bending the old ones.
-5. Use `python3 aiprogress.py set <percent> "<text>"` only for a rough manual correction; the next `done` clears it.
+5. Use `python3 howfar.py set <percent> "<text>"` only for a rough manual correction; the next `done` clears it.
 ```
 
-Adjust the path to `aiprogress.py` if it is not in the project root.
+Adjust the path to `howfar.py` if it is not in the project root.
 
 ## Claude Code status line
 
@@ -66,7 +67,7 @@ Add to `~/.claude/settings.json` or `.claude/settings.json` in your project:
 {
   "statusLine": {
     "type": "command",
-    "command": "python3 /full/path/to/aiprogress.py line"
+    "command": "python3 /full/path/to/howfar.py line"
   }
 }
 ```
@@ -78,7 +79,7 @@ The status line runs in the project directory, so it reads that project's `progr
 They have no status line under the input. Run the live view in a second terminal pane or tmux split, in the same project directory:
 
 ```sh
-python3 aiprogress.py watch
+python3 howfar.py watch
 ```
 
 `watch` waits for a plan if none exists yet, so you can start it before the agent.
@@ -86,7 +87,7 @@ python3 aiprogress.py watch
 ## Tests
 
 ```sh
-python3 -m unittest -v test_aiprogress
+python3 -m unittest -v test_howfar
 ```
 
 ## License

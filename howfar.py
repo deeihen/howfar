@@ -1,23 +1,25 @@
 #!/usr/bin/env python3
-"""aiprogress: a progress bar that AI coding agents update themselves.
+"""howfar: a progress bar that AI coding agents update themselves.
 
 The percent is the agent's own estimate from weighted milestones, not a measurement.
-State lives in ./progress.json (override with AIPROGRESS_FILE).
+State lives in ./progress.json (override with HOWFAR_FILE).
 """
 import json
 import os
 import sys
 import time
 
-USAGE = """usage: aiprogress.py <command> [args]
+USAGE = """usage: howfar.py <command> [args]
   plan "Task" "Step:weight" ...   start a task with weighted milestones
   start "Step"                    set the current step
   done "Step"                     mark a milestone finished
   set 68 ["text"]                 manual percent override
   show                            full view
   line                            one short line for status bars
-  watch                           redraw the full view every second"""
+  watch                           redraw the full view every second
+  --version                       print the version"""
 
+__version__ = "0.1.0"
 BAR_WIDTH = 20
 
 
@@ -26,7 +28,7 @@ class Error(Exception):
 
 
 def state_path():
-    return os.environ.get("AIPROGRESS_FILE", "progress.json")
+    return os.environ.get("HOWFAR_FILE", "progress.json")
 
 
 def load():
@@ -34,7 +36,7 @@ def load():
         with open(state_path(), encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
-        raise Error('no plan yet. Start one with: aiprogress.py plan "Task" "Step:weight" ...')
+        raise Error('no plan yet. Start one with: howfar.py plan "Task" "Step:weight" ...')
 
 
 def save(state):
@@ -157,7 +159,7 @@ def watch():
             try:
                 view = render_full(load())
             except Error as e:
-                view = f"aiprogress: {e}"
+                view = f"howfar: {e}"
             print("\033[2J\033[H" + view, flush=True)
             time.sleep(1)
     except KeyboardInterrupt:
@@ -182,6 +184,9 @@ def main(argv):
     elif cmd == "watch":
         watch()
         return
+    elif cmd == "--version":
+        print(f"howfar {__version__}")
+        return
     else:
         raise Error(f'unknown command "{cmd}"\n{USAGE}')
     save(state)
@@ -194,5 +199,5 @@ if __name__ == "__main__":
     try:
         main(sys.argv[1:])
     except Error as e:
-        print(f"aiprogress: {e}", file=sys.stderr)
+        print(f"howfar: {e}", file=sys.stderr)
         sys.exit(1)
