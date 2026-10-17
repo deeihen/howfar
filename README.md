@@ -22,7 +22,25 @@ Current: Docs and agent files
 
 **Honest note:** the percent is the agent's own estimate from the milestone weights it chose. It is not a measurement. A milestone weighted 30 can take 5% of the time. The ETA assumes the remaining work goes at the same pace as the finished work.
 
-## Setup
+## Claude Code plugin (CLI and desktop app)
+
+The quickest setup. At the Claude Code prompt in a terminal:
+
+```
+/plugin install howfar --marketplace deeihen/howfar
+```
+
+From a shell: `claude plugin install howfar --marketplace deeihen/howfar`. In the desktop app's Code tab: click **+** next to the prompt box, then **Plugins**, **Add marketplace** with `deeihen/howfar`, then **Add plugin**.
+
+The plugin needs Python 3 on your PATH. It then:
+
+- tells the agent to report progress with `howfar.py` (no CLAUDE.md block or settings to edit)
+- draws the bar above the prompt, in the terminal and in the desktop app
+- hides a plan left over from an earlier prompt, so the bar always belongs to the current task
+
+The plugin reads `progress.json` in the session's folder, so `HOWFAR_FILE` is not supported there. Where an organization manages Claude Code, installed plugins can't add instructions to the agent's prompt; add the instruction block below to `CLAUDE.md` instead.
+
+## Manual setup
 
 1. Python 3, standard library only. Copy `howfar.py` into your project or anywhere on disk.
 2. Paste the instruction block below into your agent's instruction file (`CLAUDE.md`, `AGENTS.md` or `GEMINI.md`).

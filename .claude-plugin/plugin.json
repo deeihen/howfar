@@ -1,0 +1,9 @@
+{
+  "name": "howfar",
+  "version": "0.2.0",
+  "description": "A progress bar your AI agent fills in itself, shown above the prompt",
+  "author": { "name": "deeihen" },
+  "repository": "https://github.com/deeihen/howfar",
+  "license": "MIT",
+  "types": "./types/index.d.ts"
+}

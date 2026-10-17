@@ -1,0 +1,5 @@
+{
+  "name": "howfar",
+  "owner": { "name": "deeihen" },
+  "plugins": [{ "name": "howfar", "source": "./" }]
+}
